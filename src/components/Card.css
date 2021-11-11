@@ -1,0 +1,76 @@
+.card {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 100%;
+    width: 25vw;
+    backdrop-filter: blur(10px);
+    box-shadow: 2px 2px 5px #555;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.card-info > * {
+    font-family: 'Lato', sans-serif;
+}
+
+.card-info > *:last-child {
+    margin-top: auto;
+    text-align: end;
+    border-top: 2px solid;
+    margin-left: 0.5rem;
+}
+
+.card-image {
+    width: 4rem;
+    height: auto;
+}
+
+.card-name {
+    font-size: 1.5rem;
+}
+
+.card-name, .card-price {
+    margin: 0.5rem 0.5rem;
+}
+
+.card-price, .card-code {
+    font-weight: 300;
+}
+
+.link {
+    background-color: rgba(31, 95, 167, 0.35);
+}
+
+.spell, .pendulum {
+    background-color: rgba(44, 144, 132, 0.35);
+}
+
+.trap {
+    background-color: rgba(143, 69, 102, 0.35);
+}
+
+.effect {
+    background-color: rgba(177, 100, 70, 0.35);
+}
+
+.normal {
+    background-color: rgba(218, 174, 125, 0.35);
+}
+
+.fusion {
+    background-color: rgba(109, 78, 138, 0.35);
+}
+
+.synchro {
+    background-color: rgba(210, 213, 218, 0.35);
+}
+
+.xyz {
+    background-color: rgba(45, 58, 77, 0.35);
+}
