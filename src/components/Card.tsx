@@ -1,3 +1,4 @@
+import { CardInterface } from "../interfaces/CardInterface";
 import "./Card.css";
 // Might connect to store for updating
 
@@ -9,9 +10,13 @@ import "./Card.css";
     timestamp
 */
 
-const Card = ({ card }) => {
+interface CardProps {
+  card: CardInterface;
+}
+
+const Card = ({ card }: CardProps) => {
   const { image, name, price, code } = card;
-  const type = card.type? ' ' + card.type.toLowerCase() : '';
+  const type = card.type ? " " + card.type.toLowerCase() : "";
   return (
     <div className={"card" + type}>
       <img src={image} alt="Card" className="card-image" />
