@@ -1,10 +1,11 @@
 import { getCards } from "./store/actions/cardsActions";
 import { connect } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Playmat from "./components/Playmat";
 import { Fab } from "./components/Fab";
-const App = (props) => {
-  const { getCards } = props;
+import Modal from "./components/Modal";
+const App = ({ getCards }) => {
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     getCards();
@@ -13,7 +14,10 @@ const App = (props) => {
   return (
     <div className="App">
       <Playmat />
-      <Fab onClick={() => {}}/>
+      <Fab onClick={() => setShowModal(true)} />
+      <Modal onClose={() => setShowModal(false)} show={showModal}>
+          <p>Hello</p>
+      </Modal>
     </div>
   );
 };
