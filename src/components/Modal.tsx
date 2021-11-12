@@ -1,12 +1,11 @@
-import { ReactComponentLike } from "prop-types";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, ReactElement } from "react";
 import "./Modal.css";
 
 interface ModalProps {
   onClose: MouseEventHandler<HTMLSpanElement>,
   show: boolean,
-  header: string,
-  children: ReactComponentLike
+  header?: string,
+  children: ReactElement | Element
 };
 
 const Modal = ({ onClose, show, header = "Modal", children }: ModalProps) => {

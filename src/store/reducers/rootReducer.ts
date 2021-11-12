@@ -1,5 +1,10 @@
 import { combineReducers } from "redux";
-import cardsReducer from "./cardsReducer";
+import cardsReducer, { CardState } from "./cardsReducer";
+
+
+export interface StoreState {
+    cards: CardState
+}
 
 const rootReducer = combineReducers({
     cards: cardsReducer

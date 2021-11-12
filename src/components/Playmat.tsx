@@ -1,13 +1,10 @@
-import { connect } from "react-redux";
-import { CardInterface } from "../interfaces/CardInterface";
+import { connect, ConnectedProps } from "react-redux";
+import { StoreState } from "../store/reducers/rootReducer";
 import Card from "./Card";
 import "./Playmat.css";
 
-interface PlaymatProps {
-  allCards: CardInterface[];
-}
-
-const Playmat = ({ allCards }: PlaymatProps) => {
+const Playmat = (props: PlaymatProps) => {
+  const { allCards } = props;
   return (
     <div className="cards-dealer">
       {allCards.length ? (
@@ -19,18 +16,13 @@ const Playmat = ({ allCards }: PlaymatProps) => {
   );
 };
 
-// Move this to the redux store eventually
+const mapStateToProps = (state: StoreState) => ({
+  allCards: state.cards.cards,
+});
 
-interface StoreState {
-  cards: {
-    cards: CardInterface[];
-  };
-}
+const connector = connect(mapStateToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
-const mapStateToProps = (state: StoreState) => {
-  return {
-    allCards: state.cards.cards,
-  };
-};
+type PlaymatProps = PropsFromRedux;
 
-export default connect(mapStateToProps)(Playmat);
+export default connector(Playmat);
