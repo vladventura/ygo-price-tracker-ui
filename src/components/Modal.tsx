@@ -1,5 +1,5 @@
 import { ReactComponentLike } from "prop-types";
-import { MouseEventHandler, ReactComponentElement } from "react";
+import { MouseEventHandler } from "react";
 import "./Modal.css";
 
 interface ModalProps {
