@@ -1,3 +1,4 @@
-export const GET_CARDS: CardsActionTypes = "GET_CARDS";
+export const GET_CARDS = "GET_CARDS";
+export const ADD_CARD = "ADD_CARD";
 
-export type CardsActionTypes = "GET_CARDS";
+export type CardsActionTypes = typeof GET_CARDS | typeof ADD_CARD;

@@ -1,5 +1,6 @@
+import { PostCardsEndpoint } from "../../interfaces/APISchema";
 import { CardInterface } from "../../interfaces/CardInterface";
-import { CardsActionTypes, GET_CARDS } from "../actions/actionTypes";
+import { ADD_CARD, CardsActionTypes, GET_CARDS } from "../actions/actionTypes";
 import { GetCardsAction } from "../actions/cardsActions";
 
 export interface CardState {
@@ -8,7 +9,7 @@ export interface CardState {
 
 export interface CardReducerAction {
     type: CardsActionTypes,
-    payload: GetCardsAction
+    payload: GetCardsAction | PostCardsEndpoint
 };
 
 const initState: CardState = {
@@ -22,6 +23,11 @@ const cardsReducer = (state = initState, action: CardReducerAction) => {
             return {
                 ...state,
                 cards: action.payload
+            }
+        case ADD_CARD:
+            return {
+                ...state,
+                cards: [...state.cards, (action.payload as PostCardsEndpoint).data]
             }
         default:
             return { ...state }
