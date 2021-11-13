@@ -4,13 +4,21 @@ import Card from "./Card";
 import "./Playmat.css";
 
 const Playmat = (props: PlaymatProps) => {
-  const { allCards } = props;
+  const { allCards, filter } = props;
+  const showableCards = filter.length ? (
+    allCards
+      .filter((card) => card.name.toLowerCase().includes(filter.toLowerCase()))
+      .map((card) => <Card card={card} key={card.code} />)
+  ) : (
+    allCards.map((card) => <Card card={card} key={card.code} />)
+  );
   return (
     <div className="cards-dealer">
       {allCards.length ? (
-        allCards.map((card) => <Card card={card} key={card.code} />)
+        showableCards.length?
+        showableCards : <p className="playmat-message">No cards to show</p>
       ) : (
-        <div>Loading cards</div>
+        <p className="playmat-message">Loading cards</p>
       )}
     </div>
   );
@@ -18,6 +26,7 @@ const Playmat = (props: PlaymatProps) => {
 
 const mapStateToProps = (state: StoreState) => ({
   allCards: state.cards.cards,
+  filter: state.cards.filter,
 });
 
 const connector = connect(mapStateToProps);
