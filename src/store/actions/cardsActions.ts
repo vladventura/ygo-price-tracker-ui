@@ -31,7 +31,6 @@ export const getCards = () => {
     getState: () => CardState
   ) => {
     return axios.get(url).then((res) => {
-      console.log(res.data);
       dispatch({
         type: GET_CARDS,
         payload: res.data,
