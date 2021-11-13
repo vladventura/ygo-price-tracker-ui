@@ -1,11 +1,12 @@
-import { addCard, getCards } from "./store/actions/cardsActions";
+import { addCard, getCards, searchCard } from "./store/actions/cardsActions";
 import { connect, ConnectedProps } from "react-redux";
 import { useEffect, useState } from "react";
 import Playmat from "./components/Playmat";
 import { Fab } from "./components/Fab";
 import Modal from "./components/Modal";
+import Searchbar from "./components/Searchbar";
 
-const App = ({ getCards, addCard }: AppProps) => {
+const App = ({ getCards, addCard, searchCard }: AppProps) => {
   const [showModal, setShowModal] = useState(false);
   const [code, setCode] = useState("");
 
@@ -20,6 +21,7 @@ const App = ({ getCards, addCard }: AppProps) => {
 
   return (
     <div className="App">
+      <Searchbar onSearchChange={searchCard} />
       <Playmat />
       <Fab onClick={() => setShowModal(true)} />
       <Modal
@@ -39,7 +41,8 @@ const App = ({ getCards, addCard }: AppProps) => {
 const mapDispatchToProps = (dispatch: Function) => {
   return {
     getCards: () => dispatch(getCards()),
-    addCard: (code: string) => dispatch(addCard(code))
+    addCard: (code: string) => dispatch(addCard(code)),
+    searchCard: (cardName: string) => dispatch(searchCard(cardName))
   };
 };
 
