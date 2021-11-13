@@ -5,19 +5,31 @@ import {
   PostCardsEndpoint,
 } from "../../interfaces/APISchema";
 import { CardState } from "../reducers/cardsReducer";
-import { ADD_CARD, CardsActionTypes, GET_CARDS } from "./actionTypes";
+import {
+  ADD_CARD,
+  CardsActionTypes,
+  GET_CARDS,
+  SEARCH_CARD,
+} from "./actionTypes";
 
 const serverUrl = "http://localhost:5000";
 const cardsEndpoint = "/cards";
 const url = serverUrl + cardsEndpoint;
 
-export interface GetCardsAction {
+interface CardAction<T> {
   type: CardsActionTypes;
-  payload: GetCardsEndpoint;
+  payload: T;
 }
 
+export type GetCardsAction = CardAction<GetCardsEndpoint>;
+export type AddCardAction = CardAction<PostCardsEndpoint>;
+export type SearchCardAction = CardAction<string>;
+
 export const getCards = () => {
-  return (dispatch: Dispatch<GetCardsAction>, getState: () => CardState) => {
+  return (
+    dispatch: Dispatch<GetCardsAction>,
+    getState: () => CardState
+  ) => {
     return axios.get(url).then((res) => {
       console.log(res.data);
       dispatch({
@@ -28,23 +40,27 @@ export const getCards = () => {
   };
 };
 
-export interface AddCardAction {
-  type: CardsActionTypes;
-  payload: PostCardsEndpoint;
-}
-
 export const addCard = (code: string) => {
   return (dispatch: Dispatch<AddCardAction>, getState: () => CardState) => {
     return axios
       .post(url + "?cardCode=" + code)
       .then((res) => {
-          dispatch({
-              type: ADD_CARD,
-              payload: res.data
-          })
+        dispatch({
+          type: ADD_CARD,
+          payload: res.data,
+        });
       })
       .catch((er) => {
         console.log(er);
       });
+  };
+};
+
+export const searchCard = (cardName: string) => {
+  return (dispatch: Dispatch<SearchCardAction>, getState: () => CardState) => {
+    dispatch({
+      type: SEARCH_CARD,
+      payload: cardName,
+    });
   };
 };

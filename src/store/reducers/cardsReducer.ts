@@ -1,37 +1,46 @@
-import { PostCardsEndpoint } from "../../interfaces/APISchema";
 import { CardInterface } from "../../interfaces/CardInterface";
-import { ADD_CARD, CardsActionTypes, GET_CARDS } from "../actions/actionTypes";
-import { GetCardsAction } from "../actions/cardsActions";
+import { ADD_CARD, GET_CARDS, SEARCH_CARD } from "../actions/actionTypes";
+import {
+  AddCardAction,
+  GetCardsAction,
+  SearchCardAction,
+} from "../actions/cardsActions";
 
 export interface CardState {
-    cards: CardInterface[]
+  cards: CardInterface[];
+  filter: string;
 }
 
-export interface CardReducerAction {
-    type: CardsActionTypes,
-    payload: GetCardsAction | PostCardsEndpoint
-};
+export type CardReducerAction =
+  | GetCardsAction
+  | AddCardAction
+  | SearchCardAction;
 
 const initState: CardState = {
-    cards: []
+  cards: [],
+  filter: "",
 };
 
-
 const cardsReducer = (state = initState, action: CardReducerAction) => {
-    switch(action.type){
-        case GET_CARDS:
-            return {
-                ...state,
-                cards: action.payload
-            }
-        case ADD_CARD:
-            return {
-                ...state,
-                cards: [...state.cards, (action.payload as PostCardsEndpoint).data]
-            }
-        default:
-            return { ...state }
-    }
+  switch (action.type) {
+    case GET_CARDS:
+      return {
+        ...state,
+        cards: action.payload,
+      };
+    case ADD_CARD:
+      return {
+        ...state,
+        cards: [...state.cards, (action as AddCardAction).payload.data],
+      };
+    case SEARCH_CARD:
+      return {
+        ...state,
+        filter: (action as SearchCardAction).payload
+      };
+    default:
+      return { ...state };
+  }
 };
 
 export default cardsReducer;
