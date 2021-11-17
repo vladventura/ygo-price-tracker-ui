@@ -15,15 +15,27 @@
     justify-content: space-around;
 }
 
-.card-info > * {
-    font-family: 'Lato', sans-serif;
-}
-
-.card-info > *:last-child {
+.card-footer {
     margin-top: auto;
-    text-align: end;
     border-top: 2px solid;
     margin-left: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card-refresh {
+    margin-right: 1rem;
+}
+
+.card-delete {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.card-code {
+    text-align: end;
+    margin-left: auto;
 }
 
 .card-image {

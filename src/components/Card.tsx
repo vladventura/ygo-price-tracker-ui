@@ -23,7 +23,11 @@ const Card = ({ card }: CardProps) => {
       <div className="card-info">
         <p className="card-name">{name}</p>
         <p className="card-price">${price}</p>
-        <p className="card-code">{code}</p>
+        <div className="card-footer">
+          <div className="card-refresh">R</div>
+          <div className="card-delete">X</div>
+          <p className="card-code">{code}</p>
+        </div>
       </div>
     </div>
   );
