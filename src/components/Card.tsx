@@ -1,4 +1,6 @@
 import { CardInterface } from "../interfaces/CardInterface";
+import { connect, ConnectedProps } from "react-redux";
+import { refreshCard } from "../store/actions/cardsActions";
 import "./Card.css";
 // Might connect to store for updating
 
@@ -10,13 +12,14 @@ import "./Card.css";
     timestamp
 */
 
-interface CardProps {
-  card: CardInterface;
-}
-
-const Card = ({ card }: CardProps) => {
+const Card = ({ card, refreshCard }: CardProps) => {
   const { image, name, price, code } = card;
   const type = card.type ? " " + card.type.toLowerCase() : "";
+
+  const onRefreshClick = () => {
+    refreshCard(card.code);
+  };
+
   return (
     <div className={"card" + type}>
       <img src={image} alt="Card" className="card-image" />
@@ -24,7 +27,7 @@ const Card = ({ card }: CardProps) => {
         <p className="card-name">{name}</p>
         <p className="card-price">${price}</p>
         <div className="card-footer">
-          <div className="card-refresh">R</div>
+          <div className="card-refresh" onClick={onRefreshClick}>R</div>
           <div className="card-delete">X</div>
           <p className="card-code">{code}</p>
         </div>
@@ -33,4 +36,17 @@ const Card = ({ card }: CardProps) => {
   );
 };
 
-export default Card;
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    refreshCard: (code: string | number) => dispatch(refreshCard(code))
+  };
+};
+
+const connector = connect(null, mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+type CardProps = PropsFromRedux & {
+  card: CardInterface
+};
+
+export default connector(Card);
