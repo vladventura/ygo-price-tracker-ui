@@ -1,8 +1,14 @@
 import { CardInterface } from "../../interfaces/CardInterface";
-import { ADD_CARD, GET_CARDS, SEARCH_CARD } from "../actions/actionTypes";
+import {
+  ADD_CARD,
+  GET_CARDS,
+  REFRESH_CARD,
+  SEARCH_CARD,
+} from "../actions/actionTypes";
 import {
   AddCardAction,
   GetCardsAction,
+  RefreshCardAction,
   SearchCardAction,
 } from "../actions/cardsActions";
 
@@ -36,7 +42,12 @@ const cardsReducer = (state = initState, action: CardReducerAction) => {
     case SEARCH_CARD:
       return {
         ...state,
-        filter: (action as SearchCardAction).payload
+        filter: (action as SearchCardAction).payload,
+      };
+    case REFRESH_CARD:
+      return {
+        ...state,
+        cards: action.payload,
       };
     default:
       return { ...state };
